@@ -1,0 +1,42 @@
+
+.button {
+    -fx-font-family: "Lucida Console";
+    -fx-font-size: 1.5em;
+    -fx-text-fill: black;
+    -fx-background-color: transparent;
+    -fx-background-radius: 100px;
+}
+
+.button:hover {
+    -fx-effect: dropshadow( gaussian, black, 2, 0.2, 1, 1 );
+}
+
+.label {
+    -fx-font-family: "Lucida Console";
+    -fx-font-size: 1.5em;
+}
+
+.text-field{
+    -fx-pref-width: 550;
+    -fx-pref-height: 30;
+    -fx-font-family: "Lucida Console";
+    -fx-font-size: 1.5em;
+}
+
+.vbox {
+    -fx-padding: 10;
+    -fx-spacing: 30;
+}
+
+.grid {
+    -fx-padding: 30;
+    -fx-hgap: 100;
+    -fx-vgap: 75;
+    -fx-translate-x: 90;
+    -fx-translate-y: 45;
+}
+
+
+.choice-box{
+    -fx-pref-width: 200;
+}

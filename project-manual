@@ -1,0 +1,80 @@
+This project consists of three phases.
+
+        1.1 Phase 1
+
+In the first phase (period 2.4) the graphical interface of the digital assistant should be developed. This should be
+developed user friendly and allow the interaction by typing.
+In addition, the user should have the possibility to define new skills. Therefore, a skill editor should be developed
+that can also load and save the skills into a text file.
+
+A first type of skill should also be supported by the assistant. The easiest type defining a skill are template skills.
+In this case, the user can define a prototype sentence with placeholders that should be recognized as the command for a
+skill. Then an action based on the values of the placeholders should be performed. An example would be “Which lectures
+are there on <DAY> at <TIME>”, where <DAY> can have the values from Monday to Sunday and <TIME> can be 9, 11, or 15.
+Then the assistant should be able to answer based on the concrete values of <DAY> and <TIME>.
+
+The code of the components are expected as deliverables at the end of phase 1. Obviously, you are most welcome to do more.
+Moreover, an overview needs to be provided of which group member contributed to what and to which extent during the work
+ in phase 1, together with a planning of the work for phase 2. This should also be included in the phase 1 presentation,
+  along with a Gantt chart (or similar, detailed timeplan) for future steps.
+        1.2 Phase 2
+
+In the second phase (period 2.5) you should extend the possibility of the skills. Therefore, it should be possible to
+define the sentences of the different skills by a context-free grammar. Extend your GUI Editor, to also support the
+definition of the Context-free grammar. In this case, there should be a single context-free grammar for all skills.
+In addition, you should implement a parser that is able to parse the input and check if it belongs to the CFG and then
+answer with the correct action.
+In addition, you should make the assistant multi-modal. Access the webcam and recognize whether a person is sitting in
+front of the camera by using simple image processing techniques. These can be threshold-based detection of a head using
+ an appropriate color space that is robust to lighting variations, or can be developed using more sophisticated methods,
+  such as Haar classifiers. When a person is detected, the assistant should start a conversation.
+
+        1.3 Phase 3
+
+In phrase 3 you should improve the usability of the system. There are several directions you can follow:
+
+    • Machine-learning based Natural Language Understanding: Create training data by sample sentences from the CFG.
+    Then train an appropriate machine learning model on this data and include it in your project. Evaluate how good it
+    is to recognize utterances from the CFG and how good is it to recognize unknown utterances.
+    • Person recognition: Extend the person recognition by machine learning to recognize a set of persons. Enable the
+     assistant to directly approach the person by name. Is it possible to learn new people?
+    • Multi-turn dialogs: Enable the system to handle multi-turn dialogs. If not all slots are given, ask for the missing ones.
+
+    2 The setting
+
+2.1 Template-based skills
+
+Question    Which lectures are there on <DAY> at <TIME>
+Slot   <DAY>  Monday
+Slot   <DAY>  Tuesday
+Slot   <DAY>  Wednesday
+Slot   <DAY>  Thursday
+Slot   <DAY>  Friday
+Slot   <DAY>  Saturday
+Slot   <TIME> 9
+Slot   <TIME> 11
+Slot   <TIME> 13
+Slot   <TIME> 15
+Action <DAY>  Saturday   There are no lectures on Saturday
+Action <DAY>  Monday <TIME> 9  We start the week with math
+Action <DAY>  Monday <TIME> 11 On Monday noon we have Theoratical Computer Science
+Action I have no idea
+
+
+2.2 CFG-based skills
+
+Rule    <S>    <ACTION>
+Rule   <ACTION>   <LOCATION> | <SCHEDULE>
+Rule   <SCHEDULE> Which lectures are there <TIMEEXPRESSION> | <TIMEEXPRESSION> which lectures are there
+Rule   <TIMEEXPRESSION>   on <DAY> at <TIME> | at <TIME> on <DAY>
+Rule   <TIME> 9 | 12
+Rule   <LOCATION> Where is <ROOM> | How do <PRO> get to <ROOM> | Where is <ROOM> located
+Rule   <PRO>  I | you | he | she
+Rule   <ROOM> DeepSpace | SpaceBox
+Rule   <DAY>  Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday
+Action <SCHEDULE> *  <DAY>  Saturday   There are no lectures on Saturday
+Action <SCHEDULE> *  <DAY>  Monday <TIME> 9  We start the week with math
+Action <SCHEDULE> *  <DAY>  Monday <TIME> 12 On Monday noon we have Theoratical Computer Science
+Action <LOCATION> *  <ROOM> DeepSpace  DeepSpace is the first room after the entrance
+Action <LOCATION> *  <ROOM> is in the first floor
+Action I have no idea
